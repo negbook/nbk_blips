@@ -7,9 +7,9 @@ exports functions:
     exports.nbk_blips:GetBlips()
     exports.nbk_blips:GetCloestBlip()
     exports.nbk_blips:GetOnScreenBlips()
-    exports.nbk_blips:GetBlipsBySprite()
-    exports.nbk_blips:GetCloestBlipBySprite()
-    exports.nbk_blips:GetOnScreenBlipsBySprite()
+    exports.nbk_blips:GetBlipsBySprite(spriteid)
+    exports.nbk_blips:GetCloestBlipBySprite(spriteid)
+    exports.nbk_blips:GetOnScreenBlipsBySprite(spriteid)
 ```
     
 example:
