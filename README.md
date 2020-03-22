@@ -1,4 +1,11 @@
+**Credits:**
+Negbook
 
+**installtion :** 
+server.cfg
+```
+start nbk_blips 
+```
 
 **exports :** 
 ```
@@ -10,7 +17,7 @@ exports.nbk_blips:GetCloestBlipBySprite(spriteid)
 exports.nbk_blips:GetOnScreenBlipsBySprite(spriteid)
 ```
 
-example:
+**example :** 
 ```
 Citizen.CreateThread(function()
     while true do 
