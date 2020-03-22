@@ -31,4 +31,31 @@ Citizen.CreateThread(function()
 end)
 ```
 
+**example2:**
+```
+CurrentBlip = nil 
+
+Citizen.CreateThread(function()
+    while true do 
+        local blip = exports.nbk_blips:GetOnScreenCloestBlipBySprite(434)
+        local coords = GetBlipCoords(blip) 
+        local x = coords.x 
+        local y = coords.y 
+        local z = coords.z 
+        CurrentBlip = {x=x,y=y,z=z}
+        TriggerEvent('localmessage',"The OnScreen Cloest ATM Blips:"..blip.."x:".. x .. "y:"..y .."z:"..z)
+        Citizen.Wait(330)
+    end 
+end)
+
+Citizen.CreateThread(function()
+    while true do 
+        if CurrentBlip then 
+        DrawMarker(1, CurrentBlip.x, CurrentBlip.y, CurrentBlip.z-1.0, 0.0, 0.0, 0.0, 0, 0.0, 0.0, 1.0, 1.0, 1.0, 0, 0, 255, 100, false, false, 2, true--[[旋轉]], false--[[dict]], false--[[txd]], false)
+        end 
+        Citizen.Wait(0)
+    end 
+end )
+```
+
 > Github: [nbk_blips](https://github.com/negbook/nbk_blips)
