@@ -44,6 +44,23 @@ function GetCloestBlip()
     return closestBlip,closestBlipDistance
 end 
 
+function GetOnScreenCloestBlip()
+    local myCoords = GetEntityCoords(PlayerPedId())
+    local closestBlipDistance = -1
+    local closestBlip  = -1
+    for i,Blip in pairs (GetBlips()) do
+        local BlipCoords = GetBlipCoords(Blip)
+        local distance      = #(BlipCoords - myCoords)
+        if closestBlipDistance == -1 or closestBlipDistance > distance then
+            if IsSphereVisible(BlipCoords,1.0) then 
+            closestBlip  = Blip
+            closestBlipDistance = distance
+            end 
+        end
+    end
+    return closestBlip,closestBlipDistance
+end 
+
 function GetBlipsBySprite(id)
     local blipstable = {}
     local blip = GetFirstBlipInfoId(id) 
@@ -82,6 +99,23 @@ function GetCloestBlipBySprite(id)
         if closestBlipDistance == -1 or closestBlipDistance > distance then
             closestBlip  = Blip
             closestBlipDistance = distance
+        end
+    end
+    return closestBlip,closestBlipDistance
+end 
+
+function GetOnScreenCloestBlipBySprite(id)
+    local myCoords = GetEntityCoords(PlayerPedId())
+    local closestBlipDistance = -1
+    local closestBlip  = -1
+    for i,Blip in pairs (GetBlipsBySprite(id)) do
+        local BlipCoords = GetBlipCoords(Blip)
+        local distance      = #(BlipCoords - myCoords)
+        if closestBlipDistance == -1 or closestBlipDistance > distance then
+            if IsSphereVisible(BlipCoords,1.0) then 
+            closestBlip  = Blip
+            closestBlipDistance = distance
+            end 
         end
     end
     return closestBlip,closestBlipDistance

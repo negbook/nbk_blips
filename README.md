@@ -12,9 +12,11 @@ start nbk_blips
 exports.nbk_blips:GetBlips() 
 exports.nbk_blips:GetCloestBlip()
 exports.nbk_blips:GetOnScreenBlips()
+exports.nbk_blips:GetOnScreenCloestBlip()
 exports.nbk_blips:GetBlipsBySprite(spriteid)
 exports.nbk_blips:GetCloestBlipBySprite(spriteid)
 exports.nbk_blips:GetOnScreenBlipsBySprite(spriteid)
+exports.nbk_blips:GetOnScreenCloestBlipBySprite(spriteid)
 ```
 
 **example :** 

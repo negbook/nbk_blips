@@ -6,8 +6,12 @@ exports {
     "GetBlips",
     "GetCloestBlip",
     "GetOnScreenBlips",
+    "GetOnScreenCloestBlip",
     "GetBlipsBySprite",
     "GetCloestBlipBySprite",
     "GetOnScreenBlipsBySprite",
+    "GetOnScreenCloestBlipBySprite",
+    
+    
 
 }
