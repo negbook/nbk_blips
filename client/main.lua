@@ -29,7 +29,7 @@ function GetOnScreenBlips()
     return OnScreenBlips
 end 
 
-function GetCloestBlip(ped)
+function GetClosestBlip(ped)
     local xped = PlayerPedId() 
     if ped then xped = ped end 
     local myCoords = GetEntityCoords(xped)
@@ -46,7 +46,7 @@ function GetCloestBlip(ped)
     return closestBlip,closestBlipDistance
 end 
 
-function GetCloestBlipByCoords(coords)
+function GetClosestBlipByCoords(coords)
     local myCoords = coords
     local closestBlipDistance = -1
     local closestBlip  = -1
@@ -61,7 +61,7 @@ function GetCloestBlipByCoords(coords)
     return closestBlip,closestBlipDistance
 end 
 
-function GetOnScreenCloestBlip()
+function GetOnScreenClosestBlip()
     local xped = PlayerPedId() 
     local myCoords = GetEntityCoords(xped)
     local closestBlipDistance = -1
@@ -107,7 +107,7 @@ function GetOnScreenBlipsBySprite(id)
     return OnScreenBlips
 end 
 
-function GetCloestBlipBySprite(id,ped)
+function GetClosestBlipBySprite(id,ped)
     local xped = PlayerPedId() 
     if ped then xped = ped end 
     local myCoords = GetEntityCoords(xped)
@@ -124,7 +124,7 @@ function GetCloestBlipBySprite(id,ped)
     return closestBlip,closestBlipDistance
 end 
 
-function GetOnScreenCloestBlipBySprite(id)
+function GetOnScreenClosestBlipBySprite(id)
     local xped = PlayerPedId() 
     local myCoords = GetEntityCoords(xped)
     local closestBlipDistance = -1
@@ -142,7 +142,7 @@ function GetOnScreenCloestBlipBySprite(id)
     return closestBlip,closestBlipDistance
 end 
 
-function GetOnScreenCloestBlipBySpriteByCoords(id,coords)
+function GetOnScreenClosestBlipBySpriteByCoords(id,coords)
     local myCoords = coords
     local closestBlipDistance = -1
     local closestBlip  = -1

@@ -4,15 +4,15 @@ games { 'gta5' }
 client_script "client/main.lua"
 exports {
     "GetBlips",
-    "GetCloestBlip",
-    "GetCloestBlipByCoords",
+    "GetClosestBlip",
+    "GetClosestBlipByCoords",
     "GetOnScreenBlips",
-    "GetOnScreenCloestBlip",
+    "GetOnScreenClosestBlip",
     "GetBlipsBySprite",
-    "GetCloestBlipBySprite",
+    "GetClosestBlipBySprite",
     "GetOnScreenBlipsBySprite",
-    "GetOnScreenCloestBlipBySprite",
-    "GetOnScreenCloestBlipBySpriteByCoords",
+    "GetOnScreenClosestBlipBySprite",
+    "GetOnScreenClosestBlipBySpriteByCoords",
     
 
 }
