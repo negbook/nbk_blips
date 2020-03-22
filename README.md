@@ -1,17 +1,15 @@
-Credits:
-negbook
 
 
-exports functions: 
+**exports :** 
 ```
-    exports.nbk_blips:GetBlips()
-    exports.nbk_blips:GetCloestBlip()
-    exports.nbk_blips:GetOnScreenBlips()
-    exports.nbk_blips:GetBlipsBySprite(spriteid)
-    exports.nbk_blips:GetCloestBlipBySprite(spriteid)
-    exports.nbk_blips:GetOnScreenBlipsBySprite(spriteid)
+exports.nbk_blips:GetBlips() 
+exports.nbk_blips:GetCloestBlip()
+exports.nbk_blips:GetOnScreenBlips()
+exports.nbk_blips:GetBlipsBySprite(spriteid)
+exports.nbk_blips:GetCloestBlipBySprite(spriteid)
+exports.nbk_blips:GetOnScreenBlipsBySprite(spriteid)
 ```
-    
+
 example:
 ```
 Citizen.CreateThread(function()
@@ -22,5 +20,6 @@ Citizen.CreateThread(function()
         Citizen.Wait(330)
     end 
 end)
-
 ```
+
+> Github: [nbk_blips](https://github.com/negbook/nbk_blips)
