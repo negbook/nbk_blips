@@ -62,4 +62,24 @@ Citizen.CreateThread(function()
 end )
 ```
 
+**example3:**
+```
+Citizen.CreateThread(function() 
+    --get closest street nearby closest blip of random position
+    local x = GetRandomFloatInRange(-2000.0,2000.0) 
+    local y = GetRandomFloatInRange(-2000.0,2000.0) 
+    local z = GetRandomFloatInRange(-2000.0,2000.0) 
+    local blip = exports.nbk_blips:GetClosestBlipByCoords(vector3(x,y,z))
+    if DoesBlipExist(blip) then 
+        local fincoords = GetBlipCoords(blip)
+        local _, target = GetNthClosestVehicleNodeWithHeading(fincoords.x, fincoords.y, fincoords.z, math.random(5, 10), 0, 0, 0)
+        local tarX, tarY, tarZ, tarH = table.unpack(target)
+        local bool, street1, street2 = GetClosestRoad(tarX, tarY, tarZ, 1.0, 1, false)
+        if bool then 
+            print(street1, street2)
+        end 
+    end 
+end)
+```
+
 > Github: [nbk_blips](https://github.com/negbook/nbk_blips)
