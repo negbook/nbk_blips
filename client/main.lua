@@ -158,3 +158,27 @@ function GetOnScreenClosestBlipBySpriteByCoords(id,coords)
     end
     return closestBlip,closestBlipDistance
 end 
+
+Citizen.CreateThread(function()
+    local BlipsOnScreen = {}
+    while true do 
+        local coords = GetEntityCoords(PlayerPedId())
+        for i,Blip in pairs (GetBlips()) do
+            local BlipCoords = GetBlipCoords(Blip)
+            local dist = #(coords - BlipCoords)
+            local bool,xper,yper = GetScreenCoordFromWorldCoord(BlipCoords.x,BlipCoords.y,BlipCoords.z)
+            if bool and dist < 80.0 and xper > 0.31 and xper < 0.68  and yper > 0.31 and yper < 0.68  then 
+                if not BlipsOnScreen[Blip] then 
+                    BlipsOnScreen[Blip] = true
+                    TriggerEvent('OnBlipOnScreen',GetBlipSprite(Blip),Blip,BlipCoords)
+                end 
+            else 
+                if BlipsOnScreen[Blip] then 
+                    BlipsOnScreen[Blip] = false
+                    TriggerEvent('OnBlipOutScreen',GetBlipSprite(Blip),Blip,BlipCoords)
+                end 
+            end 
+        end
+        Citizen.Wait(1000)
+    end 
+end)
