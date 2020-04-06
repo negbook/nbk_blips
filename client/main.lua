@@ -161,6 +161,7 @@ end
 
 Citizen.CreateThread(function()
     local BlipsOnScreen = {}
+	local BlipsHasBeenOnScreen = {}
     while true do 
         local coords = GetEntityCoords(PlayerPedId())
         for i,Blip in pairs (GetBlips()) do
@@ -172,6 +173,10 @@ Citizen.CreateThread(function()
                     BlipsOnScreen[Blip] = true
                     TriggerEvent('OnBlipOnScreen',GetBlipSprite(Blip),Blip,BlipCoords)
                 end 
+				if not BlipsHasBeenOnScreen[Blip] then 
+					BlipsHasBeenOnScreen[Blip] = true 
+					TriggerEvent('OnBlipFirstOnScreen',GetBlipSprite(Blip),Blip,BlipCoords)
+				end 
             else 
                 if BlipsOnScreen[Blip] then 
                     BlipsOnScreen[Blip] = false
