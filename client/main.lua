@@ -20,7 +20,7 @@ function GetOnScreenBlips()
     local OnScreenBlips = {}
     for i,Blip in pairs (GetBlips()) do
         local BlipCoords = GetBlipCoords(Blip)
-        local retval = IsSphereVisible(BlipCoords,1.0)
+        local retval = IsSphereVisible(BlipCoords,0.1)
         if retval then 
 			table.insert(OnScreenBlips,Blip)
 		elseif not retval then 
@@ -70,7 +70,7 @@ function GetOnScreenClosestBlip()
         local BlipCoords = GetBlipCoords(Blip)
         local distance      = #(BlipCoords - myCoords)
         if closestBlipDistance == -1 or closestBlipDistance > distance then
-            if IsSphereVisible(BlipCoords,1.0) then 
+            if IsSphereVisible(BlipCoords,0.1) then 
             closestBlip  = Blip
             closestBlipDistance = distance
             end 
@@ -98,7 +98,7 @@ function GetOnScreenBlipsBySprite(id)
     local OnScreenBlips = {}
     for i,Blip in pairs (GetBlipsBySprite(id)) do
         local BlipCoords = GetBlipCoords(Blip)
-        local retval = IsSphereVisible(BlipCoords,1.0)
+        local retval = IsSphereVisible(BlipCoords,0.1)
         if retval then 
 			table.insert(OnScreenBlips,Blip)
 		elseif not retval then 
@@ -133,7 +133,7 @@ function GetOnScreenClosestBlipBySprite(id)
         local BlipCoords = GetBlipCoords(Blip)
         local distance      = #(BlipCoords - myCoords)
         if closestBlipDistance == -1 or closestBlipDistance > distance then
-            if IsSphereVisible(BlipCoords,1.0) then 
+            if IsSphereVisible(BlipCoords,0.1) then 
             closestBlip  = Blip
             closestBlipDistance = distance
             end 
@@ -150,7 +150,7 @@ function GetOnScreenClosestBlipBySpriteByCoords(id,coords)
         local BlipCoords = GetBlipCoords(Blip)
         local distance      = #(BlipCoords - myCoords)
         if closestBlipDistance == -1 or closestBlipDistance > distance then
-            if IsSphereVisible(BlipCoords,1.0) then 
+            if IsSphereVisible(BlipCoords,0.1) then 
             closestBlip  = Blip
             closestBlipDistance = distance
             end 
@@ -167,20 +167,23 @@ Citizen.CreateThread(function()
         for i,Blip in pairs (GetBlips()) do
             local BlipCoords = GetBlipCoords(Blip)
             local dist = #(coords - BlipCoords)
-            local bool,xper,yper = GetScreenCoordFromWorldCoord(BlipCoords.x,BlipCoords.y,BlipCoords.z)
-            if bool and dist < 80.0 and xper > 0.31 and xper < 0.68  and yper > 0.31 and yper < 0.68  then 
-                if not BlipsOnScreen[Blip] then 
-                    BlipsOnScreen[Blip] = true
-                    TriggerEvent('OnBlipOnScreen',GetBlipSprite(Blip),Blip,BlipCoords)
-                end 
-				if not BlipsHasBeenOnScreen[Blip] then 
-					BlipsHasBeenOnScreen[Blip] = true 
-					TriggerEvent('OnBlipFirstOnScreen',GetBlipSprite(Blip),Blip,BlipCoords)
-				end 
-            else 
-                if BlipsOnScreen[Blip] then 
-                    BlipsOnScreen[Blip] = false
-                    TriggerEvent('OnBlipOutScreen',GetBlipSprite(Blip),Blip,BlipCoords)
+            if dist < 40.0 then 
+                --local bool,xper,yper = GetScreenCoordFromWorldCoord(BlipCoords.x,BlipCoords.y,BlipCoords.z)
+                local bool = IsSphereVisible(BlipCoords,0.1)
+                if bool then 
+                    if not BlipsOnScreen[Blip] then 
+                        BlipsOnScreen[Blip] = true
+                        TriggerEvent('OnBlipOnScreen',GetBlipSprite(Blip),Blip,BlipCoords)
+                    end 
+                    if not BlipsHasBeenOnScreen[Blip] then 
+                        BlipsHasBeenOnScreen[Blip] = true 
+                        TriggerEvent('OnBlipFirstOnScreen',GetBlipSprite(Blip),Blip,BlipCoords)
+                    end 
+                else 
+                    if BlipsOnScreen[Blip] then 
+                        BlipsOnScreen[Blip] = false
+                        TriggerEvent('OnBlipOutScreen',GetBlipSprite(Blip),Blip,BlipCoords)
+                    end 
                 end 
             end 
         end
