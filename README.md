@@ -22,6 +22,22 @@ exports.nbk_blips:GetClosestBlipBySprite(spriteid,ped)
 exports.nbk_blips:GetOnScreenBlipsBySprite(spriteid)
 exports.nbk_blips:GetOnScreenClosestBlipBySprite(spriteid)
 exports.nbk_blips:GetOnScreenClosestBlipBySpriteByCoords(spriteid,coords)
+exports.nbk_blips:RegisterHook_ClosestBlipBySprite(spriteid)
+```
+
+**triggering events :** 
+```
+OnBlipOnScreen(spriteid,blipid,blipcoords)
+OnBlipFirstOnScreen(spriteid,blipid,blipcoords)
+OnBlipOutScreen(spriteid,blipid,blipcoords)
+```
+
+
+**triggering events(after RegisterHook_ClosestBlipBySprite(spriteid)) :** 
+```
+OnClosestBlipBySpriteUpdate(newclosestblipid,oldclosestblipid) 
+OnOnScreenClosestBlipBySpriteUpdate(newclosestblipid,oldclosestblipid) 
+
 ```
 
 **example :** 
