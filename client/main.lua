@@ -66,7 +66,7 @@ function GetOnScreenClosestBlip()
     local myCoords = GetEntityCoords(xped)
     local closestBlipDistance = -1
     local closestBlip  = -1
-    for i,Blip in pairs (GetBlips()) do
+    for i,Blip in pairs (GetOnScreenBlips()) do
         local BlipCoords = GetBlipCoords(Blip)
         local distance      = #(BlipCoords - myCoords)
         if closestBlipDistance == -1 or closestBlipDistance > distance then
@@ -129,7 +129,7 @@ function GetOnScreenClosestBlipBySprite(id)
     local myCoords = GetEntityCoords(xped)
     local closestBlipDistance = -1
     local closestBlip  = -1
-    for i,Blip in pairs (GetBlipsBySprite(id)) do
+    for i,Blip in pairs (GetOnScreenBlipsBySprite(id)) do
         local BlipCoords = GetBlipCoords(Blip)
         local distance      = #(BlipCoords - myCoords)
         if closestBlipDistance == -1 or closestBlipDistance > distance then
@@ -146,7 +146,7 @@ function GetOnScreenClosestBlipBySpriteByCoords(id,coords)
     local myCoords = coords
     local closestBlipDistance = -1
     local closestBlip  = -1
-    for i,Blip in pairs (GetBlipsBySprite(id)) do
+    for i,Blip in pairs (GetOnScreenBlipsBySprite(id)) do
         local BlipCoords = GetBlipCoords(Blip)
         local distance      = #(BlipCoords - myCoords)
         if closestBlipDistance == -1 or closestBlipDistance > distance then
