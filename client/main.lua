@@ -79,6 +79,23 @@ function GetOnScreenClosestBlip()
     return closestBlip,closestBlipDistance
 end 
 
+function GetOnScreenClosestBlipByCoords(coords)
+    local myCoords = coords
+    local closestBlipDistance = -1
+    local closestBlip  = -1
+    for i,Blip in pairs (GetOnScreenBlips()) do
+        local BlipCoords = GetBlipCoords(Blip)
+        local distance      = #(BlipCoords - myCoords)
+        if closestBlipDistance == -1 or closestBlipDistance > distance then
+            if IsSphereVisible(BlipCoords,0.1) then 
+            closestBlip  = Blip
+            closestBlipDistance = distance
+            end 
+        end
+    end
+    return closestBlip,closestBlipDistance
+end 
+
 function GetBlipsBySprite(id)
     local blipstable = {}
     local blip = GetFirstBlipInfoId(id) 
@@ -162,27 +179,43 @@ end
 Citizen.CreateThread(function()
     local BlipsOnScreen = {}
 	local BlipsHasBeenOnScreen = {}
+	local OldClosestBlip = nil
+	local CurrentClosestBlip = nil
+	local OldOnScreenClosestBlip = nil
+	local CurrentOnScreenClosestBlip = nil
     while true do 
         local coords = GetEntityCoords(PlayerPedId())
-        for i,Blip in pairs (GetBlips()) do
+		
+		CurrentClosestBlip = GetClosestBlipByCoords(coords)
+		if OldClosestBlip ~= CurrentClosestBlip then 
+			TriggerEvent('OnClosestBlipUpdate',CurrentClosestBlip,OldClosestBlip)
+			OldClosestBlip = CurrentClosestBlip
+		end 
+		CurrentOnScreenClosestBlip = GetOnScreenClosestBlipByCoords(coords)
+        if OldOnScreenClosestBlip ~= CurrentOnScreenClosestBlip then 
+			TriggerEvent('OnOnScreenClosestBlipUpdate',CurrentOnScreenClosestBlip,OldOnScreenClosestBlip)
+			OldOnScreenClosestBlip = CurrentOnScreenClosestBlip
+		end 
+		for i,Blip in pairs (GetBlips()) do
             local BlipCoords = GetBlipCoords(Blip)
             local dist = #(coords - BlipCoords)
             if dist < 40.0 then 
                 --local bool,xper,yper = GetScreenCoordFromWorldCoord(BlipCoords.x,BlipCoords.y,BlipCoords.z)
                 local bool = IsSphereVisible(BlipCoords,0.1)
+				local sprite = GetBlipSprite(Blip)
                 if bool then 
                     if not BlipsOnScreen[Blip] then 
                         BlipsOnScreen[Blip] = true
-                        TriggerEvent('OnBlipOnScreen',GetBlipSprite(Blip),Blip,BlipCoords)
+                        TriggerEvent('OnBlipOnScreen',sprite,Blip,BlipCoords)
                     end 
                     if not BlipsHasBeenOnScreen[Blip] then 
                         BlipsHasBeenOnScreen[Blip] = true 
-                        TriggerEvent('OnBlipFirstOnScreen',GetBlipSprite(Blip),Blip,BlipCoords)
+                        TriggerEvent('OnBlipFirstOnScreen',sprite,Blip,BlipCoords)
                     end 
                 else 
                     if BlipsOnScreen[Blip] then 
                         BlipsOnScreen[Blip] = false
-                        TriggerEvent('OnBlipOutScreen',GetBlipSprite(Blip),Blip,BlipCoords)
+                        TriggerEvent('OnBlipOutScreen',sprite,Blip,BlipCoords)
                     end 
                 end 
             end 

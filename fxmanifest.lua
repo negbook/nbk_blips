@@ -8,6 +8,7 @@ exports {
     "GetClosestBlipByCoords",
     "GetOnScreenBlips",
     "GetOnScreenClosestBlip",
+	"GetOnScreenClosestBlipByCoords",
     "GetBlipsBySprite",
     "GetClosestBlipBySprite",
     "GetOnScreenBlipsBySprite",
