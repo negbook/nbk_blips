@@ -1,4 +1,4 @@
-local HookedSprite = {}
+HookedSprite = {}
 function GetBlips()
     local ActivesBlips = {} 
     for i = 1 , 528 do 
@@ -265,21 +265,22 @@ Citizen.CreateThread(function()
             end 
         end
 		for i,sprite in pairs (HookedSprite) do 
-            if sprite then 
             if not CurrentClosestBlipBySprite then 
-                CurrentClosestBlipBySprite = GetClosestBlipBySprite(sprite) 
+            CurrentClosestBlipBySprite = GetClosestBlipBySprite(sprite) 
             else 
                 CurrentClosestBlipBySprite = GetClosestBlipBySprite(sprite) 
                 if OldClosestBlipBySprite ~= CurrentClosestBlipBySprite then 
-                    
-                    TriggerEvent('OnClosestBlipBySpriteUpdate',CurrentClosestBlipBySprite,OldClosestBlipBySprite)
+                    TriggerEvent('OnClosestBlipBySpriteUpdate',CurrentClosestBlipBySprite,sprite)
                     OldClosestBlipBySprite = CurrentClosestBlipBySprite
                 end 
+            end 
+            if not CurrentOnScreenClosestBlipBySprite then 
+            CurrentOnScreenClosestBlipBySprite = GetOnScreenClosestBlipBySprite(sprite)
+            else 
                 CurrentOnScreenClosestBlipBySprite = GetOnScreenClosestBlipBySprite(sprite)
                 if OldOnScreenClosestBlipBySprite ~= CurrentOnScreenClosestBlipBySprite then 
-                    TriggerEvent('OnOnScreenClosestBlipBySpriteUpdate',CurrentOnScreenClosestBlipBySprite,OldOnScreenClosestBlipBySprite)
+                    TriggerEvent('OnOnScreenClosestBlipBySpriteUpdate',CurrentOnScreenClosestBlipBySprite,sprite)
                     OldOnScreenClosestBlipBySprite = CurrentOnScreenClosestBlipBySprite
-                end 
                 end 
             end 
 		end 
@@ -303,6 +304,6 @@ function RegisterHook_ClosestBlipBySprite(spriteid)
 end 
 RegisterNetEvent('nbk_blips:RegisterHook_ClosestBlipBySprite')
 AddEventHandler('nbk_blips:RegisterHook_ClosestBlipBySprite', function(spriteid)
-   
+    
 	RegisterHook_ClosestBlipBySprite(spriteid)
 end)
