@@ -23,6 +23,8 @@ exports.nbk_blips:GetOnScreenBlipsBySprite(spriteid)
 exports.nbk_blips:GetOnScreenClosestBlipBySprite(spriteid)
 exports.nbk_blips:GetOnScreenClosestBlipBySpriteByCoords(spriteid,coords)
 exports.nbk_blips:RegisterHook_ClosestBlipBySprite(spriteid)
+exports.nbk_blips:RequestClosestBlipBySpriteUpdate(spriteid,cbfunc())
+exports.nbk_blips:RequestOnScreenClosestBlipBySpriteUpdate(spriteid,cbfunc(blip,spriteid))
 ```
 
 **triggering events :** 

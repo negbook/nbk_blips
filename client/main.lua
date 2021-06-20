@@ -1,5 +1,6 @@
 HookedSprite = {}
 HookedSpriteCallbacks = {}
+HookedSpriteOnScreenCallbacks = {}
 function GetBlips()
     local ActivesBlips = {} 
     for i = 1 , 528 do 
@@ -272,7 +273,7 @@ Citizen.CreateThread(function()
                 CurrentClosestBlipBySprite = GetClosestBlipBySprite(sprite) 
                 if OldClosestBlipBySprite ~= CurrentClosestBlipBySprite then 
                     TriggerEvent('OnClosestBlipBySpriteUpdate',CurrentClosestBlipBySprite,sprite)
-                    HookedSpriteCallbacks[sprite](CurrentClosestBlipBySprite,sprite,false)
+                    HookedSpriteCallbacks[sprite](CurrentClosestBlipBySprite,sprite)
                     OldClosestBlipBySprite = CurrentClosestBlipBySprite
                 end 
             end 
@@ -282,7 +283,7 @@ Citizen.CreateThread(function()
                 CurrentOnScreenClosestBlipBySprite = GetOnScreenClosestBlipBySprite(sprite)
                 if OldOnScreenClosestBlipBySprite ~= CurrentOnScreenClosestBlipBySprite then 
                     TriggerEvent('OnOnScreenClosestBlipBySpriteUpdate',CurrentOnScreenClosestBlipBySprite,sprite)
-                    HookedSpriteCallbacks[sprite](CurrentClosestBlipBySprite,sprite,true)
+                    HookedSpriteOnScreenCallbacks[sprite](CurrentClosestBlipBySprite,sprite)
                     OldOnScreenClosestBlipBySprite = CurrentOnScreenClosestBlipBySprite
                 end 
             end 
@@ -311,18 +312,25 @@ AddEventHandler('nbk_blips:RegisterHook_ClosestBlipBySprite', function(spriteid)
 	RegisterHook_ClosestBlipBySprite(spriteid)
 end)
 
+function RequestClosestBlipBySpriteUpdate(spriteid,cb)
+    RegisterHook_ClosestBlipBySprite(spriteid)
+    HookedSpriteCallbacks[spriteid] = cb 
+end 
+function RequestOnScreenClosestBlipBySpriteUpdate(spriteid,cb)
+    RegisterHook_ClosestBlipBySprite(spriteid)
+    HookedSpriteOnScreenCallbacks[spriteid] = cb 
+end 
+
 
 RegisterNetEvent('nbk_blips:RequestClosestBlipBySpriteUpdate')
 AddEventHandler('nbk_blips:RequestClosestBlipBySpriteUpdate', function(spriteid,cb)
-	RegisterHook_ClosestBlipBySprite(spriteid)
-    HookedSpriteCallbacks[spriteid] = cb 
-    
+	
+    RequestClosestBlipBySpriteUpdate(spriteid,cb)
 end)
-TriggerEvent('nbk_blips:RequestClosestBlipBySpriteUpdate',277,function(blip,sprite,isOnScreenUpdate) 
-        if isOnScreenUpdate then 
-            print('OnScreen ClosestBlip updated',blip,sprite)
-        else 
-            print('(AllTypes) ClosestBlip updated',blip,sprite)
-        end 
-    end)
+
+RegisterNetEvent('nbk_blips:RequestOnScreenClosestBlipBySpriteUpdate')
+AddEventHandler('nbk_blips:RequestOnScreenClosestBlipBySpriteUpdate', function(spriteid,cb)
+	
+    RequestOnScreenClosestBlipBySpriteUpdate(spriteid,cb)
+end)
 
