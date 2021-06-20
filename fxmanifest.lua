@@ -1,7 +1,13 @@
-fx_version 'adamant'
-games { 'gta5' }
+fx_version 'cerulean'
+game 'gta5'
 
-client_script "client/main.lua"
+description 'nbk_blips utilities for FXServer'
+
+client_scripts{ 
+"client/main.lua",
+"example.lua"
+}
+
 exports {
 	"GetBlips",
 	"GetClosestBlip",
