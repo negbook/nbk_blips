@@ -4,7 +4,7 @@ game 'gta5'
 description 'nbk_blips utilities for FXServer'
 
 client_scripts{ 
-"client/main.lua",
+"client.lua",
 "example.lua"
 }
 
@@ -20,7 +20,7 @@ exports {
 	"GetClosestBlipBySpriteByCoords",
 	"GetOnScreenBlipsBySprite",
 	"GetOnScreenClosestBlipBySprite",
-	"GetOnScreenClosestBlipBySpriteByCoords"
-    "RequestClosestBlipBySpriteUpdate"
+	"GetOnScreenClosestBlipBySpriteByCoords",
+    "RequestClosestBlipBySpriteUpdate",
     "RequestOnScreenClosestBlipBySpriteUpdate"
 }
